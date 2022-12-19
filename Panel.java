@@ -6,7 +6,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 
-public class Panel extends JPanel implements KeyListener, ActionListener {
+public class Panel extends JPanel implements KeyListener, ActionListener 
+{
+//Adding images to the game
     ImageIcon snaketitle = new ImageIcon(getClass().getResource("snaketitle.jpg"));
     ImageIcon rightmouth= new ImageIcon(getClass().getResource("rightmouth.png"));
     ImageIcon snakeimage= new ImageIcon(getClass().getResource("snakeimage.png"));
@@ -20,8 +22,8 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
     boolean isLeft= false;
     int score;
 
-    int xpos[]={25,50,75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,600,625,650,675,700,725,750,775,800,825,850};
-    int ypos[]={75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,600,625};
+    int xpos[]={25,50,75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,600,625,650,675,700,725,750,775,800,825,850}; //position of food from x 
+    int ypos[]={75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,600,625};//array for position of food from Y
 
     Random random =new Random();
     int foodx=150;
@@ -38,17 +40,19 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
     {
        addKeyListener(this);
        setFocusable(true);
-       time=new Timer(150,this);
+       time=new Timer(150,this);//timer function to increase and decrease the speed of snake
        time.start();
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g) 
+    {
+    //paint funtion 
         super.paint(g);
         g.setColor(Color.white);
-        g.drawRect(24,10,851,55);
-        g.fillRect(24,74,851,576);
-        snaketitle.paintIcon(this,g,25,11);
+        g.drawRect(24,10,851,55);//draw first rectangle
+        g.fillRect(24,74,851,576);//fill rectangle
+        snaketitle.paintIcon(this,g,25,11);//use image
         g.setColor(Color.black);
         g.fillRect(25,75,850,575);
 
@@ -97,7 +101,9 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) 
+    {
+    //funtions for all the keypressed from the keyboard
         if(e.getKeyCode()==KeyEvent.VK_SPACE && GameOver){
             restart();
         }
@@ -137,7 +143,9 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         }
 
     }
-    private void restart(){
+    private void restart()
+    {
+    //function to restart the game
         GameOver=false;
         move=0;
         score=0;
@@ -195,7 +203,7 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         repaint();
     }
     private void CollisionWithBody()
-    {
+    {//funtion when the head of snake colloid with body
         for(int i=lengthOfSnake-1;i>0;i--)
         {
             if(snakeX[i]==snakeX[0] && snakeY[i]== snakeY[0])
@@ -205,7 +213,8 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
             }
         }
     }
-    private void CollisionWithFood(){
+    private void CollisionWithFood()
+    {//function when snake colloid with food
         if(snakeX[0]==foodx && snakeY[0]==foody)
         {
             newfood();
@@ -216,7 +225,7 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         }
     }
     private void newfood()
-    {
+    {//function for new food 
         foodx=xpos[random.nextInt(xpos.length-1)];
         foody=ypos[random.nextInt(ypos.length-1)];
         for(int i=lengthOfSnake-1;i>=0;i--){
